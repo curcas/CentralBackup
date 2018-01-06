@@ -46,7 +46,9 @@ namespace CentralBackup.Web
 
             app.UseMvc();
             app.UseHangfireServer();
-            app.UseHangfireDashboard();
+            app.UseHangfireDashboard("/", new DashboardOptions {
+                Authorization = new [] { new HangfireAuthFilter() }
+            });
 
             RegisterJobs(app);
         }
