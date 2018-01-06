@@ -1,4 +1,5 @@
-﻿using System.Data.SqlClient;
+﻿using System;
+using System.Data.SqlClient;
 using Autofac;
 using CentralBackup.Migrations;
 using Hangfire;
@@ -75,7 +76,7 @@ namespace CentralBackup.Web
 
                 foreach (var job in jobRepository.LoadAll())
                 {
-                    RecurringJob.AddOrUpdate(job.HangfireJobId.ToString(), () => scope.ServiceProvider.GetService<Execution.JobExecutor>().Execute(job.Id), job.Cron);
+                    RecurringJob.AddOrUpdate(job.HangfireJobId.ToString(), () => scope.ServiceProvider.GetService<Execution.JobExecutor>().Execute(job.Id), job.Cron, TimeZoneInfo.FindSystemTimeZoneById("1340"));
                 }
             }
         }
