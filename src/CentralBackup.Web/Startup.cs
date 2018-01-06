@@ -76,7 +76,7 @@ namespace CentralBackup.Web
 
                 foreach (var job in jobRepository.LoadAll())
                 {
-                    RecurringJob.AddOrUpdate(job.HangfireJobId.ToString(), () => scope.ServiceProvider.GetService<Execution.JobExecutor>().Execute(job.Id), job.Cron, TimeZoneInfo.FindSystemTimeZoneById("W. Europe Standard Time"));
+                    RecurringJob.AddOrUpdate(job.HangfireJobId.ToString(), () => scope.ServiceProvider.GetService<Execution.JobExecutor>().Execute(job.Id), job.Cron);
                 }
             }
         }
